@@ -11,6 +11,8 @@ interface IYDAI {
 
 contract Wallet {
   address admin;
+  uint256 currentBalance;
+
   IERC20 dai = IERC20(0x6B175474E89094C44Da98b954EedeAC495271d0F);
   IYDAI yDai = IYDAI(0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01);
 
