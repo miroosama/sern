@@ -1,6 +1,5 @@
-const DaiToken = artifacts.require('DaiToken');
+const Wallet = artifacts.require('Wallet');
 
 module.exports = async function(deployer, network, accounts) {
-  await deployer.deploy(DaiToken);
-  const daiToken = await DaiToken.deployed();
+  await deployer.deploy(Wallet);
 };
