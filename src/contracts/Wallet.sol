@@ -11,7 +11,7 @@ interface IYDAI {
 
 contract Wallet {
   address admin;
-  uint256 currentBalance;
+  uint256 transferAmount;
 
   IERC20 dai = IERC20(0x6B175474E89094C44Da98b954EedeAC495271d0F);
   IYDAI yDai = IYDAI(0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01);
@@ -20,12 +20,12 @@ contract Wallet {
     admin = msg.sender;
   }
 
-  function save(uint amount) external {
-    dai.transferFrom(msg.sender, address(this), amount);
+  function save(address _address, uint amount) internal {
+    dai.transferFrom(_address, address(this), amount);
     _save(amount);
   }
 
-  function spend (uint amount, address recipient) external {
+  function spend (uint amount, address recipient) internal {
     require(msg.sender == admin, 'unauthorized');
     uint balanceShares = yDai.balanceOf(address(this));
     yDai.withdraw(balanceShares);
@@ -41,9 +41,9 @@ contract Wallet {
     yDai.deposit(amount);
   }
 
-  function balance() external view returns(uint) {
+  function balance(address _address) external view returns(uint) {
     uint price = yDai.getPricePerFullShare();
-    uint balanceShares = yDai.balanceOf(address(this));
+    uint balanceShares = yDai.balanceOf(_address);
     return balanceShares * price;
   }
 

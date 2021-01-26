@@ -1,12 +1,12 @@
 pragma solidity ^0.6.0;
 
-import 'https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol';
+import '@openzeppelin/contracts/math/SafeMath.sol';
 import './InvestmentFund.sol';
 
 contract Portfolio {
   using SafeMath for uint256;
 
-  InvestmentFund[] private investmentFunds
+  InvestmentFund[] private investmentFunds;
 
   event InvestmentFundStarted(
     address contractAddress,
@@ -15,14 +15,14 @@ contract Portfolio {
     string fundDesc
   );
 
-  function startFund(string _title, string _desc) external {
-    InvestmentFund newFund = new InvestmentFund(msg.sender, _title, _desc);
+  function startFund(string calldata _fundTitle, string calldata  _fundDesc) external {
+    InvestmentFund newFund = new InvestmentFund(msg.sender, _fundTitle, _fundDesc);
     investmentFunds.push(newFund);
     emit InvestmentFundStarted(
-      address(newFund);
+      address(newFund),
       msg.sender,
-      _title,
-      _desc
+      _fundTitle,
+      _fundDesc
     );
   }
 
