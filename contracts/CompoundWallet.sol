@@ -16,8 +16,10 @@ interface CEth {
 contract CompoundWallet {
   event WalletLog(string, uint256);
 
-  function supplyEthToCompound(address payable _cEtherContract) public payable returns (bool) {
-    CEth cToken = CEth(cEtherContract);
+  constructor() public payable { }
+
+  function supplyEthToCompound(address payable _cEtherContract, uint256 _amount) public payable returns (bool) {
+    CEth cToken = CEth(_cEtherContract);
 
     uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();
     emit WalletLog("Exchange Rate (scaled up by 1e18): ", exchangeRateMantissa);
@@ -25,19 +27,18 @@ contract CompoundWallet {
     uint256 supplyRateMantissa = cToken.supplyRatePerBlock();
     emit WalletLog("Supply Rate: (scaled up by 1e18)", supplyRateMantissa);
 
-    cToken.mint.value(msg.value).gas(250000)();
+    cToken.mint.value(_amount).gas(250000)();
     return true;
   }
 
-  function redeemCEth(uint256 amount, bool reedeemType, address cEtherContract) public returns (bool) {
+  function redeemCEth(address _cEtherContract, uint256 amount) public returns (bool) {
     CEth cToken = CEth(_cEtherContract);
 
-    uint256 redeemResult cToken.redeemUnderlying(amount);
+    uint256 redeemResult = cToken.redeemUnderlying(amount);
 
     emit WalletLog("If this is not 0, there was an error", redeemResult);
 
     return true;
   }
 
-  function() external payable {}
 }

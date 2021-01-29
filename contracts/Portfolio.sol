@@ -15,8 +15,8 @@ contract Portfolio {
     string fundDesc
   );
 
-  function startFund(string calldata _fundTitle, string calldata  _fundDesc) external {
-    InvestmentFund newFund = new InvestmentFund(msg.sender, _fundTitle, _fundDesc);
+  function startFund(string memory _fundTitle, string memory _fundDesc) public {
+    InvestmentFund newFund = new InvestmentFund(_fundTitle, _fundDesc);
     investmentFunds.push(newFund);
     emit InvestmentFundStarted(
       address(newFund),
@@ -26,7 +26,7 @@ contract Portfolio {
     );
   }
 
-  function returnAllProjects() external view returns (InvestmentFund[] memory) {
+  function returnAllProjects() public view returns (InvestmentFund[] memory) {
     return investmentFunds;
   }
 
