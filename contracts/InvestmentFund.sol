@@ -7,15 +7,15 @@ contract InvestmentFund is CompoundWallet {
   using SafeMath for uint256;
 
   address creator;
+  address[] internal hasWithdrawn;
+  address[] public investors;
+  address[] public voters;
   uint256 public currentBalance;
   uint256 public profit;
   uint256 public votes;
   string public title;
   string public desc;
 
-  address[] internal hasWithdrawn;
-  address[] internal investors;
-  address[] internal voters;
   mapping(address => uint256) public investments;
 
   event FundingReceived(address investor, uint amount, uint currentTotal);
