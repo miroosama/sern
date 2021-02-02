@@ -3329,12 +3329,12 @@
         }
       },
       "links": {},
-      "address": "0x700c6469b5BF10041940b19B71d31521F9A76E36",
-      "transactionHash": "0x806dfa0219f1749f31a6349ab6a04905ec9c26819fae776c3cf727d36882ff60"
+      "address": "0xb6b8b43Ab6D578d0e68f866403B9082B37Ed9c7a",
+      "transactionHash": "0x0fa1fa965c67b2ac485c8dffceb202f3e4552feebd9971c1d76c9b593937cedb"
     }
   },
   "schemaVersion": "3.2.0",
-  "updatedAt": "2021-01-30T00:38:32.145Z",
+  "updatedAt": "2021-02-02T02:53:33.081Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

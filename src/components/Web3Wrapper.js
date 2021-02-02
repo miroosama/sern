@@ -27,9 +27,12 @@ export default function Web3Wrapper({ web3 }) {
      if (portfolioNetwork) {
        const portfolioContract = new web3.eth.Contract(Portfolio.abi, portfolioNetwork.address);
        console.log(portfolioContract)
+
+       // create a new fund first
        // const newFund = await portfolioContract.methods.startFund('new fund', 'moon').send({
        //   from: accounts[0]
        // });
+
        // console.log(newFund)
        setPortfolio(portfolioContract)
        // const fundList = await portfolioContract.methods.returnAllProjects().call();
@@ -84,8 +87,9 @@ export default function Web3Wrapper({ web3 }) {
   }
 
   const vote = async () => {
-    //make msg.sender
-    const vote = await investmentFundInstance.methods.vote(account).call();
+    const vote = await investmentFundInstance.methods.vote().send({
+      from: account
+    });
     console.log(vote)
   }
 
@@ -96,7 +100,7 @@ export default function Web3Wrapper({ web3 }) {
   }
 
   const getVoters = async () => {
-    const invest = await investmentFundInstance.methods.voters().call();
+    const invest = await investmentFundInstance.methods.getVoters().call();
     console.log(invest)
   }
 

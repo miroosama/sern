@@ -39,16 +39,20 @@ contract InvestmentFund is CompoundWallet {
     emit FundingReceived(msg.sender, msg.value, currentBalance);
   }
 
-  function vote(address _voter) external {
-    bool hasVoted = hasParticipated(voters, _voter);
+  function vote() external {
+    bool hasVoted = hasParticipated(voters, msg.sender);
     if (!hasVoted) {
-      voters.push(_voter);
+      voters.push(msg.sender);
     }
   }
 
   function hasVotes() internal view returns (bool) {
     bool majorityVotes = voters.length >= (investors.length / 2);
     return majorityVotes;
+  }
+
+  function getVoters() external view returns (address[] memory) {
+    return voters;
   }
 
   function hasParticipated(address[] storage _addressList, address _investor) internal view returns (bool) {
