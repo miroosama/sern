@@ -13,25 +13,30 @@ export default function Web3Wrapper({ web3 }) {
   const [web3Instance, setWeb3Instance] = useState();
   const [portfolio, setPortfolio] = useState();
   const [investmentFundInstance, setinvestmentFundInstance] = useState();
+  const [compoundWalletInstance, setCompoundWalletInstance] = useState();
   const [investmentFunds, setInvestmentFunds] = useState();
   useEffect(() => {
     const loadWeb3 = async () => {
-      const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+      const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
       const accounts = await web3.eth.getAccounts();
       const networkId = await web3.eth.net.getId();
+      console.log(networkId)
       setAccount(accounts[0]);
       setWeb3Instance(web3);
       const portfolioNetwork = Portfolio.networks[networkId];
       const investmentFundNetwork = InvestmentFund.networks[networkId];
-
+      const compoundWalletNetwork = CompoundWallet.networks[networkId];
      if (portfolioNetwork) {
        const portfolioContract = new web3.eth.Contract(Portfolio.abi, portfolioNetwork.address);
+       const compoundWalletContract = new web3.eth.Contract(CompoundWallet.abi, compoundWalletNetwork.address);
+       console.log(compoundWalletContract);
+       setCompoundWalletInstance(compoundWalletContract);
        console.log(portfolioContract)
 
        // create a new fund first
-       // const newFund = await portfolioContract.methods.startFund('new fund', 'moon').send({
-       //   from: accounts[0]
-       // });
+       const newFund = await portfolioContract.methods.startFund('new fund', 'moon').send({
+         from: accounts[0]
+       });
 
        // console.log(newFund)
        setPortfolio(portfolioContract)
@@ -95,7 +100,14 @@ export default function Web3Wrapper({ web3 }) {
 
   const invest = async () => {
     const n2 = await investmentFundInstance.methods.currentBalance().call()
-    const invest = await investmentFundInstance.methods.invest(compoundCEthContractAddress, n2).call();
+    console.log(n2)
+    console.log(account)
+    const invest = await investmentFundInstance.methods.invest(compoundCEthContractAddress, compoundWalletInstance._address).send({
+      from: account,
+      value: web3Instance.utils.toHex(n2),
+      gasLimit: web3Instance.utils.toHex(750000),
+      gasPrice: web3Instance.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
+    });
     console.log(invest)
   }
 

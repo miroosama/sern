@@ -65,10 +65,11 @@ contract InvestmentFund is CompoundWallet {
     return participated;
   }
 
-  function invest(address payable _cEtherContract, uint256 _amount) public payable returns (bool) {
+  function invest(address payable _cEtherContract, address payable _compoundWallet) public payable returns (bool) {
     require(hasParticipated(investors, msg.sender), 'Unauthorized');
     require (hasVotes(), 'Not enough votes');
-    bool isInvested = supplyEthToCompound(_cEtherContract, _amount);
+    CompoundWallet compoundWallet = CompoundWallet(_compoundWallet);
+    bool isInvested = compoundWallet.supplyEthToCompound.value(msg.value).gas(2500000)(_cEtherContract);
     return isInvested;
   }
 

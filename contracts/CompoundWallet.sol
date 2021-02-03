@@ -18,7 +18,7 @@ contract CompoundWallet {
 
   constructor() public payable { }
 
-  function supplyEthToCompound(address payable _cEtherContract, uint256 _amount) public payable returns (bool) {
+  function supplyEthToCompound(address payable _cEtherContract) public payable returns (bool) {
     CEth cToken = CEth(_cEtherContract);
 
     uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();
@@ -27,7 +27,7 @@ contract CompoundWallet {
     uint256 supplyRateMantissa = cToken.supplyRatePerBlock();
     emit WalletLog("Supply Rate: (scaled up by 1e18)", supplyRateMantissa);
 
-    cToken.mint.value(_amount).gas(250000)();
+    cToken.mint.value(msg.value).gas(250000)();
     return true;
   }
 
