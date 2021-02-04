@@ -73,11 +73,12 @@ contract InvestmentFund is CompoundWallet {
     return isInvested;
   }
 
-  function withdrawInvestment(address payable _cEtherContract, uint256 _amount) public payable {
+  function withdrawInvestment(address payable _cEtherContract, address payable _compoundWallet, uint256 _amount) public payable {
     require(_amount > 0, 'No profit yet!');
     require(hasParticipated(investors, msg.sender), 'Unauthorized');
     require (hasVotes(), 'Not enough votes');
-    bool isProfit = redeemCEth(_cEtherContract, _amount);
+    CompoundWallet compoundWallet = CompoundWallet(_compoundWallet);
+    bool isProfit = compoundWallet.redeemCEth(_cEtherContract, _amount);
     if (isProfit) {
       profit = address(this).balance;
     }

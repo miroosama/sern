@@ -17,11 +17,26 @@ export default function Web3Wrapper({ web3 }) {
   const [investmentFunds, setInvestmentFunds] = useState();
   useEffect(() => {
     const loadWeb3 = async () => {
+      let accounts;
+      if (window.ethereum) {
+        try {
+          const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          // setAccounts(accounts);
+          accounts = accs;
+          setAccount(accs[0]);
+        } catch (error) {
+          if (error.code === 4001) {
+            // User rejected request
+          }
+
+          // setError(error);
+        }
+      }
       const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
-      const accounts = await web3.eth.getAccounts();
+      // const accounts = await web3.eth.getAccounts();
       const networkId = await web3.eth.net.getId();
-      console.log(networkId)
-      setAccount(accounts[0]);
+
+      // setAccount(accounts[0]);
       setWeb3Instance(web3);
       const portfolioNetwork = Portfolio.networks[networkId];
       const investmentFundNetwork = InvestmentFund.networks[networkId];
@@ -29,9 +44,7 @@ export default function Web3Wrapper({ web3 }) {
      if (portfolioNetwork) {
        const portfolioContract = new web3.eth.Contract(Portfolio.abi, portfolioNetwork.address);
        const compoundWalletContract = new web3.eth.Contract(CompoundWallet.abi, compoundWalletNetwork.address);
-       console.log(compoundWalletContract);
        setCompoundWalletInstance(compoundWalletContract);
-       console.log(portfolioContract)
 
        // create a new fund first
        const newFund = await portfolioContract.methods.startFund('new fund', 'moon').send({
@@ -63,7 +76,7 @@ export default function Web3Wrapper({ web3 }) {
        // });
        // setDaiTokenBalance(daiTokenBalance.toString());
      } else {
-       window.alert('dai token contract not detected');
+       window.alert('contracts not detected');
      }
     };
     loadWeb3();
@@ -98,6 +111,8 @@ export default function Web3Wrapper({ web3 }) {
     console.log(vote)
   }
 
+
+  // keep track of address to get balance for withdraw
   const invest = async () => {
     const n2 = await investmentFundInstance.methods.currentBalance().call()
     console.log(n2)
@@ -111,6 +126,24 @@ export default function Web3Wrapper({ web3 }) {
     console.log(invest)
   }
 
+  // wip withdraw
+  const withdraw = async () => {
+    const n2 = await investmentFundInstance.methods.currentBalance().call()
+    console.log(n2)
+    console.log(account)
+    const withdraw = await investmentFundInstance.methods.withdrawInvestment(compoundCEthContractAddress, compoundWalletInstance._address, n2).send({
+      from: account,
+      gasLimit: web3Instance.utils.toHex(750000),
+      gasPrice: web3Instance.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
+    });
+    console.log(withdraw)
+  }
+
+  const getProfit = async () => {
+    const n2 = await investmentFundInstance.methods.profit().call()
+    console.log(n2)
+  }
+
   const getVoters = async () => {
     const invest = await investmentFundInstance.methods.getVoters().call();
     console.log(invest)
@@ -119,21 +152,27 @@ export default function Web3Wrapper({ web3 }) {
   return (
     <div>
       <Navbar account={account} />
-        <button onClick={getFundList}>
-          getFundList
-        </button>
-        <button onClick={getInvestmentContract}>
-          getContract and contribute
-        </button>
-        <button onClick={vote}>
-          vote
-        </button>
-        <button onClick={invest}>
-          invest
-        </button>
-        <button onClick={getVoters}>
-          getVoters
-        </button>
+      <button onClick={getFundList}>
+        getFundList
+      </button>
+      <button onClick={getInvestmentContract}>
+        getContract and contribute
+      </button>
+      <button onClick={vote}>
+        vote
+      </button>
+      <button onClick={invest}>
+        invest
+      </button>
+      <button onClick={getVoters}>
+        getVoters
+      </button>
+      <button onClick={withdraw}>
+        withdraw
+      </button>
+      <button onClick={getProfit}>
+        get profit
+      </button>
     </div>
   );
 }
