@@ -3,10 +3,11 @@ pragma solidity ^0.6.0;
 import '@openzeppelin/contracts/math/SafeMath.sol';
 import './CompoundWallet.sol';
 
-contract InvestmentFund is CompoundWallet {
+contract InvestmentFund {
   using SafeMath for uint256;
 
   address creator;
+  address public walletAddress;
   address[] internal hasWithdrawn;
   address[] public investors;
   address[] public voters;
@@ -26,6 +27,7 @@ contract InvestmentFund is CompoundWallet {
     desc = _desc;
     currentBalance = 0;
     profit = 0;
+    walletAddress = address(new CompoundWallet());
   }
 
   function contribute() external payable {
@@ -65,22 +67,21 @@ contract InvestmentFund is CompoundWallet {
     return participated;
   }
 
-  function invest(address payable _cEtherContract, address payable _compoundWallet) public payable returns (bool) {
+  function invest(address payable _cEtherContract) public payable returns (bool) {
     require(hasParticipated(investors, msg.sender), 'Unauthorized');
     require (hasVotes(), 'Not enough votes');
-    CompoundWallet compoundWallet = CompoundWallet(_compoundWallet);
+    CompoundWallet compoundWallet = CompoundWallet(walletAddress);
     bool isInvested = compoundWallet.supplyEthToCompound.value(msg.value).gas(2500000)(_cEtherContract);
     return isInvested;
   }
 
-  function withdrawInvestment(address payable _cEtherContract, address payable _compoundWallet, uint256 _amount) public payable {
-    require(_amount > 0, 'No profit yet!');
+  function withdrawInvestment(address payable _cEtherContract, uint256 _amount) public payable {
     require(hasParticipated(investors, msg.sender), 'Unauthorized');
     require (hasVotes(), 'Not enough votes');
-    CompoundWallet compoundWallet = CompoundWallet(_compoundWallet);
+    CompoundWallet compoundWallet = CompoundWallet(walletAddress);
     bool isProfit = compoundWallet.redeemCEth(_cEtherContract, _amount);
     if (isProfit) {
-      profit = address(this).balance;
+      profit = _amount;
     }
   }
 

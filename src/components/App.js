@@ -6,7 +6,7 @@ import './App.css'
 
 export default function App() {
 
-  useEffect(() => {
+  // useEffect(() => {
     // const enableMetamask = async () => {
     //   if (window.ethereum) {
     //     try {
@@ -22,7 +22,7 @@ export default function App() {
     //   }
     // }
     // enableMetamask();
-  }, [])
+  // }, [])
 
   return (
     <div>

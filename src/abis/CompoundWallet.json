@@ -71,12 +71,12 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.0+commit.26b70077\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"payable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"WalletLog\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_cEtherContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"redeemCEth\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"_cEtherContract\",\"type\":\"address\"}],\"name\":\"supplyEthToCompound\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/osamamiro/defi/sern/sern/contracts/CompoundWallet.sol\":\"CompoundWallet\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/osamamiro/defi/sern/sern/contracts/CompoundWallet.sol\":{\"keccak256\":\"0x6ab7975bc2155937dcad794da6d579ef7b2221abc20d9f09b9bf769f1fbdd1fe\",\"urls\":[\"bzz-raw://4a5b3be7c04054dd66c0628aa550a4143a87ac1275b90fba81a57695c36709ff\",\"dweb:/ipfs/QmcibfBh64xaQGi9a8AZ4vJMbwKkA2B5irHfZhw3Y38RTF\"]}},\"version\":1}",
-  "bytecode": "0x6080604052610548806100136000396000f3fe608060405260043610610046576000357c010000000000000000000000000000000000000000000000000000000090048063a82ffd881461004b578063e6681900146100a7575b600080fd5b61008d6004803603602081101561006157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061011a565b604051808215151515815260200191505060405180910390f35b3480156100b357600080fd5b50610100600480360360408110156100ca57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506103b8565b604051808215151515815260200191505060405180910390f35b60008082905060008173ffffffffffffffffffffffffffffffffffffffff1663bd6d894d6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561018657600080fd5b505af115801561019a573d6000803e3d6000fd5b505050506040513d60208110156101b057600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260238152602001806104f0602391396040019250505060405180910390a160008273ffffffffffffffffffffffffffffffffffffffff1663ae9d70b06040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561027c57600080fd5b505af1158015610290573d6000803e3d6000fd5b505050506040513d60208110156102a657600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260208152602001807f537570706c7920526174653a20287363616c65642075702062792031653138298152506020019250505060405180910390a18273ffffffffffffffffffffffffffffffffffffffff16631249c58b346203d090906040518363ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004016000604051808303818589803b15801561039257600080fd5b5088f11580156103a6573d6000803e3d6000fd5b50505050505060019350505050919050565b60008083905060008173ffffffffffffffffffffffffffffffffffffffff1663852a12e3856040518263ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180828152602001915050602060405180830381600087803b15801561042f57600080fd5b505af1158015610443573d6000803e3d6000fd5b505050506040513d602081101561045957600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260248152602001806104cc602491396040019250505060405180910390a16001925050509291505056fe49662074686973206973206e6f7420302c2074686572652077617320616e206572726f7245786368616e6765205261746520287363616c65642075702062792031653138293a20a26469706673582212207aa867f4e8f32e0791abb35c1f7126df20da573b35d26057a1c36244fe4eb41f64736f6c63430006000033",
-  "deployedBytecode": "0x608060405260043610610046576000357c010000000000000000000000000000000000000000000000000000000090048063a82ffd881461004b578063e6681900146100a7575b600080fd5b61008d6004803603602081101561006157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061011a565b604051808215151515815260200191505060405180910390f35b3480156100b357600080fd5b50610100600480360360408110156100ca57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506103b8565b604051808215151515815260200191505060405180910390f35b60008082905060008173ffffffffffffffffffffffffffffffffffffffff1663bd6d894d6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561018657600080fd5b505af115801561019a573d6000803e3d6000fd5b505050506040513d60208110156101b057600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260238152602001806104f0602391396040019250505060405180910390a160008273ffffffffffffffffffffffffffffffffffffffff1663ae9d70b06040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561027c57600080fd5b505af1158015610290573d6000803e3d6000fd5b505050506040513d60208110156102a657600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260208152602001807f537570706c7920526174653a20287363616c65642075702062792031653138298152506020019250505060405180910390a18273ffffffffffffffffffffffffffffffffffffffff16631249c58b346203d090906040518363ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004016000604051808303818589803b15801561039257600080fd5b5088f11580156103a6573d6000803e3d6000fd5b50505050505060019350505050919050565b60008083905060008173ffffffffffffffffffffffffffffffffffffffff1663852a12e3856040518263ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180828152602001915050602060405180830381600087803b15801561042f57600080fd5b505af1158015610443573d6000803e3d6000fd5b505050506040513d602081101561045957600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260248152602001806104cc602491396040019250505060405180910390a16001925050509291505056fe49662074686973206973206e6f7420302c2074686572652077617320616e206572726f7245786368616e6765205261746520287363616c65642075702062792031653138293a20a26469706673582212207aa867f4e8f32e0791abb35c1f7126df20da573b35d26057a1c36244fe4eb41f64736f6c63430006000033",
-  "sourceMap": "325:881:0:-:0;;;;;;;;;",
-  "deployedSourceMap": "325:881:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;426:490;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;426:490:0;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;920:283;;8:9:-1;5:2;;;30:1;27;20:12;5:2;920:283:0;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;920:283:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;426:490;512:4;524:11;543:15;524:35;;566:28;597:6;:26;;;:28;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;597:28:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;597:28:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;597:28:0;;;;;;;;;;;;;;;;566:59;;636:70;685:20;636:70;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;713:26;742:6;:25;;;:27;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;742:27:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;742:27:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;742:27:0;;;;;;;;;;;;;;;;713:56;;780:65;826:18;780:65;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;852:6;:11;;;870:9;885:6;852:40;:42;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;852:42:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;852:42:0;;;;;;907:4;900:11;;;;;426:490;;;:::o;920:283::-;997:4;1009:11;1028:15;1009:35;;1051:20;1074:6;:23;;;1098:6;1074:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1074:31:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1074:31:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1074:31:0;;;;;;;;;;;;;;;;1051:54;;1117:63;1167:12;1117:63;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1194:4;1187:11;;;;920:283;;;;:::o",
-  "source": "pragma solidity ^0.6.0;\n\ninterface CEth {\n    function mint() external payable;\n\n    function exchangeRateCurrent() external returns (uint256);\n\n    function supplyRatePerBlock() external returns (uint256);\n\n    function redeem(uint) external returns (uint);\n\n    function redeemUnderlying(uint) external returns (uint);\n}\n\n\ncontract CompoundWallet {\n  event WalletLog(string, uint256);\n\n  constructor() public payable { }\n\n  function supplyEthToCompound(address payable _cEtherContract) public payable returns (bool) {\n    CEth cToken = CEth(_cEtherContract);\n\n    uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();\n    emit WalletLog(\"Exchange Rate (scaled up by 1e18): \", exchangeRateMantissa);\n\n    uint256 supplyRateMantissa = cToken.supplyRatePerBlock();\n    emit WalletLog(\"Supply Rate: (scaled up by 1e18)\", supplyRateMantissa);\n\n    cToken.mint.value(msg.value).gas(250000)();\n    return true;\n  }\n\n  function redeemCEth(address _cEtherContract, uint256 amount) public returns (bool) {\n    CEth cToken = CEth(_cEtherContract);\n\n    uint256 redeemResult = cToken.redeemUnderlying(amount);\n\n    emit WalletLog(\"If this is not 0, there was an error\", redeemResult);\n\n    return true;\n  }\n\n}\n",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.0+commit.26b70077\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"payable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"WalletLog\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_cEtherContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"redeemCEth\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"_cEtherContract\",\"type\":\"address\"}],\"name\":\"supplyEthToCompound\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/osamamiro/defi/sern/sern/contracts/CompoundWallet.sol\":\"CompoundWallet\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/osamamiro/defi/sern/sern/contracts/CompoundWallet.sol\":{\"keccak256\":\"0x57b4a53de30d9892847c2efbcf5cd53f37bc0ad9b4b973cb6a7f98639df5f05c\",\"urls\":[\"bzz-raw://a6d019890ab4f52b382de02f398d761bb37330ddd2e2f3245cae9ee3f2088601\",\"dweb:/ipfs/QmRPYpqWLbRCeUR2t2jx2QMEw2pfzKusvbpPAAuZ2BUwTF\"]}},\"version\":1}",
+  "bytecode": "0x6080604052610548806100136000396000f3fe608060405260043610610046576000357c010000000000000000000000000000000000000000000000000000000090048063a82ffd881461004b578063e6681900146100a7575b600080fd5b61008d6004803603602081101561006157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061011a565b604051808215151515815260200191505060405180910390f35b3480156100b357600080fd5b50610100600480360360408110156100ca57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506103b8565b604051808215151515815260200191505060405180910390f35b60008082905060008173ffffffffffffffffffffffffffffffffffffffff1663bd6d894d6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561018657600080fd5b505af115801561019a573d6000803e3d6000fd5b505050506040513d60208110156101b057600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260238152602001806104f0602391396040019250505060405180910390a160008273ffffffffffffffffffffffffffffffffffffffff1663ae9d70b06040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561027c57600080fd5b505af1158015610290573d6000803e3d6000fd5b505050506040513d60208110156102a657600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260208152602001807f537570706c7920526174653a20287363616c65642075702062792031653138298152506020019250505060405180910390a18273ffffffffffffffffffffffffffffffffffffffff16631249c58b346203d090906040518363ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004016000604051808303818589803b15801561039257600080fd5b5088f11580156103a6573d6000803e3d6000fd5b50505050505060019350505050919050565b60008083905060008173ffffffffffffffffffffffffffffffffffffffff1663db006a75856040518263ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180828152602001915050602060405180830381600087803b15801561042f57600080fd5b505af1158015610443573d6000803e3d6000fd5b505050506040513d602081101561045957600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260248152602001806104cc602491396040019250505060405180910390a16001925050509291505056fe49662074686973206973206e6f7420302c2074686572652077617320616e206572726f7245786368616e6765205261746520287363616c65642075702062792031653138293a20a2646970667358221220a09dc8c86e93d8a7bf00d98cab70a3282cb5784eb4eada5ca1dd863ac1361ab364736f6c63430006000033",
+  "deployedBytecode": "0x608060405260043610610046576000357c010000000000000000000000000000000000000000000000000000000090048063a82ffd881461004b578063e6681900146100a7575b600080fd5b61008d6004803603602081101561006157600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061011a565b604051808215151515815260200191505060405180910390f35b3480156100b357600080fd5b50610100600480360360408110156100ca57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803590602001909291905050506103b8565b604051808215151515815260200191505060405180910390f35b60008082905060008173ffffffffffffffffffffffffffffffffffffffff1663bd6d894d6040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561018657600080fd5b505af115801561019a573d6000803e3d6000fd5b505050506040513d60208110156101b057600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260238152602001806104f0602391396040019250505060405180910390a160008273ffffffffffffffffffffffffffffffffffffffff1663ae9d70b06040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15801561027c57600080fd5b505af1158015610290573d6000803e3d6000fd5b505050506040513d60208110156102a657600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260208152602001807f537570706c7920526174653a20287363616c65642075702062792031653138298152506020019250505060405180910390a18273ffffffffffffffffffffffffffffffffffffffff16631249c58b346203d090906040518363ffffffff167c01000000000000000000000000000000000000000000000000000000000281526004016000604051808303818589803b15801561039257600080fd5b5088f11580156103a6573d6000803e3d6000fd5b50505050505060019350505050919050565b60008083905060008173ffffffffffffffffffffffffffffffffffffffff1663db006a75856040518263ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180828152602001915050602060405180830381600087803b15801561042f57600080fd5b505af1158015610443573d6000803e3d6000fd5b505050506040513d602081101561045957600080fd5b810190808051906020019092919050505090507fd0c55d35e13dcf688185029be63a7caa6fa1f0a0d7e3c4901b7405a2b9fac563816040518080602001838152602001828103825260248152602001806104cc602491396040019250505060405180910390a16001925050509291505056fe49662074686973206973206e6f7420302c2074686572652077617320616e206572726f7245786368616e6765205261746520287363616c65642075702062792031653138293a20a2646970667358221220a09dc8c86e93d8a7bf00d98cab70a3282cb5784eb4eada5ca1dd863ac1361ab364736f6c63430006000033",
+  "sourceMap": "325:871:0:-:0;;;;;;;;;",
+  "deployedSourceMap": "325:871:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;426:490;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;426:490:0;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;920:273;;8:9:-1;5:2;;;30:1;27;20:12;5:2;920:273:0;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;920:273:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;426:490;512:4;524:11;543:15;524:35;;566:28;597:6;:26;;;:28;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;597:28:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;597:28:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;597:28:0;;;;;;;;;;;;;;;;566:59;;636:70;685:20;636:70;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;713:26;742:6;:25;;;:27;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;742:27:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;742:27:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;742:27:0;;;;;;;;;;;;;;;;713:56;;780:65;826:18;780:65;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;852:6;:11;;;870:9;885:6;852:40;:42;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;852:42:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;852:42:0;;;;;;907:4;900:11;;;;;426:490;;;:::o;920:273::-;997:4;1009:11;1028:15;1009:35;;1051:20;1074:6;:13;;;1088:6;1074:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1074:21:0;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1074:21:0;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1074:21:0;;;;;;;;;;;;;;;;1051:44;;1107:63;1157:12;1107:63;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1184:4;1177:11;;;;920:273;;;;:::o",
+  "source": "pragma solidity ^0.6.0;\n\ninterface CEth {\n    function mint() external payable;\n\n    function exchangeRateCurrent() external returns (uint256);\n\n    function supplyRatePerBlock() external returns (uint256);\n\n    function redeem(uint) external returns (uint);\n\n    function redeemUnderlying(uint) external returns (uint);\n}\n\n\ncontract CompoundWallet {\n  event WalletLog(string, uint256);\n\n  constructor() public payable { }\n\n  function supplyEthToCompound(address payable _cEtherContract) public payable returns (bool) {\n    CEth cToken = CEth(_cEtherContract);\n\n    uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();\n    emit WalletLog(\"Exchange Rate (scaled up by 1e18): \", exchangeRateMantissa);\n\n    uint256 supplyRateMantissa = cToken.supplyRatePerBlock();\n    emit WalletLog(\"Supply Rate: (scaled up by 1e18)\", supplyRateMantissa);\n\n    cToken.mint.value(msg.value).gas(250000)();\n    return true;\n  }\n\n  function redeemCEth(address _cEtherContract, uint256 amount) public returns (bool) {\n    CEth cToken = CEth(_cEtherContract);\n\n    uint256 redeemResult = cToken.redeem(amount);\n\n    emit WalletLog(\"If this is not 0, there was an error\", redeemResult);\n\n    return true;\n  }\n\n}\n",
   "sourcePath": "/Users/osamamiro/defi/sern/sern/contracts/CompoundWallet.sol",
   "ast": {
     "absolutePath": "/Users/osamamiro/defi/sern/sern/contracts/CompoundWallet.sol",
@@ -1012,7 +1012,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 828,
+                                "referencedDeclaration": 840,
                                 "src": "870:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -1261,7 +1261,7 @@
             "body": {
               "id": 119,
               "nodeType": "Block",
-              "src": "1003:200:0",
+              "src": "1003:190:0",
               "statements": [
                 {
                   "assignments": [
@@ -1396,7 +1396,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 94,
-                        "src": "1098:6:0",
+                        "src": "1088:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1428,10 +1428,10 @@
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
-                      "memberName": "redeemUnderlying",
+                      "memberName": "redeem",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 28,
-                      "src": "1074:23:0",
+                      "referencedDeclaration": 21,
+                      "src": "1074:13:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$returns$_t_uint256_$",
                         "typeString": "function (uint256) external returns (uint256)"
@@ -1445,7 +1445,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1074:31:0",
+                    "src": "1074:21:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
@@ -1453,7 +1453,7 @@
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "1051:54:0"
+                  "src": "1051:44:0"
                 },
                 {
                   "eventCall": {
@@ -1469,7 +1469,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1127:38:0",
+                        "src": "1117:38:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_32ea112dcb61457845498aa22384476c9df97ef6cf5696f8777ea00b1e4090b1",
@@ -1484,7 +1484,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 106,
-                        "src": "1167:12:0",
+                        "src": "1157:12:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1507,7 +1507,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 35,
-                      "src": "1117:9:0",
+                      "src": "1107:9:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (string memory,uint256)"
@@ -1521,7 +1521,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1117:63:0",
+                    "src": "1107:63:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -1530,7 +1530,7 @@
                   },
                   "id": 116,
                   "nodeType": "EmitStatement",
-                  "src": "1112:68:0"
+                  "src": "1102:68:0"
                 },
                 {
                   "expression": {
@@ -1543,7 +1543,7 @@
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "1194:4:0",
+                    "src": "1184:4:0",
                     "subdenomination": null,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -1554,7 +1554,7 @@
                   "functionReturnParameters": 98,
                   "id": 118,
                   "nodeType": "Return",
-                  "src": "1187:11:0"
+                  "src": "1177:11:0"
                 }
               ]
             },
@@ -1664,17 +1664,17 @@
               "src": "996:6:0"
             },
             "scope": 121,
-            "src": "920:283:0",
+            "src": "920:273:0",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
         "scope": 122,
-        "src": "325:881:0"
+        "src": "325:871:0"
       }
     ],
-    "src": "0:1207:0"
+    "src": "0:1197:0"
   },
   "legacyAST": {
     "absolutePath": "/Users/osamamiro/defi/sern/sern/contracts/CompoundWallet.sol",
@@ -2610,7 +2610,7 @@
                                 "name": "msg",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 828,
+                                "referencedDeclaration": 840,
                                 "src": "870:3:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_magic_message",
@@ -2859,7 +2859,7 @@
             "body": {
               "id": 119,
               "nodeType": "Block",
-              "src": "1003:200:0",
+              "src": "1003:190:0",
               "statements": [
                 {
                   "assignments": [
@@ -2994,7 +2994,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 94,
-                        "src": "1098:6:0",
+                        "src": "1088:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -3026,10 +3026,10 @@
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
-                      "memberName": "redeemUnderlying",
+                      "memberName": "redeem",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 28,
-                      "src": "1074:23:0",
+                      "referencedDeclaration": 21,
+                      "src": "1074:13:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_nonpayable$_t_uint256_$returns$_t_uint256_$",
                         "typeString": "function (uint256) external returns (uint256)"
@@ -3043,7 +3043,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1074:31:0",
+                    "src": "1074:21:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
@@ -3051,7 +3051,7 @@
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "1051:54:0"
+                  "src": "1051:44:0"
                 },
                 {
                   "eventCall": {
@@ -3067,7 +3067,7 @@
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "1127:38:0",
+                        "src": "1117:38:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_32ea112dcb61457845498aa22384476c9df97ef6cf5696f8777ea00b1e4090b1",
@@ -3082,7 +3082,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 106,
-                        "src": "1167:12:0",
+                        "src": "1157:12:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -3105,7 +3105,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 35,
-                      "src": "1117:9:0",
+                      "src": "1107:9:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_string_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (string memory,uint256)"
@@ -3119,7 +3119,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1117:63:0",
+                    "src": "1107:63:0",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
@@ -3128,7 +3128,7 @@
                   },
                   "id": 116,
                   "nodeType": "EmitStatement",
-                  "src": "1112:68:0"
+                  "src": "1102:68:0"
                 },
                 {
                   "expression": {
@@ -3141,7 +3141,7 @@
                     "kind": "bool",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "1194:4:0",
+                    "src": "1184:4:0",
                     "subdenomination": null,
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
@@ -3152,7 +3152,7 @@
                   "functionReturnParameters": 98,
                   "id": 118,
                   "nodeType": "Return",
-                  "src": "1187:11:0"
+                  "src": "1177:11:0"
                 }
               ]
             },
@@ -3262,17 +3262,17 @@
               "src": "996:6:0"
             },
             "scope": 121,
-            "src": "920:283:0",
+            "src": "920:273:0",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
         "scope": 122,
-        "src": "325:881:0"
+        "src": "325:871:0"
       }
     ],
-    "src": "0:1207:0"
+    "src": "0:1197:0"
   },
   "compiler": {
     "name": "solc",
@@ -3302,8 +3302,8 @@
         }
       },
       "links": {},
-      "address": "0x713087E20c06142f2784020De82f1408A9685fa7",
-      "transactionHash": "0x7e7ef9a438263100f791634d313a0403727cafc7a0a4ebe00cb80981918c290a"
+      "address": "0x99418A10fC3bf34a51989e2Bd375348cA353e2d6",
+      "transactionHash": "0x8d34e172f4271e552a0c9176a02edf7f47a70b2bb63622b1183133db591b80f9"
     },
     "5777": {
       "events": {
@@ -3333,7 +3333,7 @@
     }
   },
   "schemaVersion": "3.2.0",
-  "updatedAt": "2021-02-04T03:28:16.319Z",
+  "updatedAt": "2021-02-05T03:33:27.123Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

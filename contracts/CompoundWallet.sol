@@ -34,7 +34,7 @@ contract CompoundWallet {
   function redeemCEth(address _cEtherContract, uint256 amount) public returns (bool) {
     CEth cToken = CEth(_cEtherContract);
 
-    uint256 redeemResult = cToken.redeemUnderlying(amount);
+    uint256 redeemResult = cToken.redeem(amount);
 
     emit WalletLog("If this is not 0, there was an error", redeemResult);
 
