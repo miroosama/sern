@@ -136,6 +136,8 @@ const compoundCEthContract = new web3Instance.eth.Contract(compoundCEthContractA
     const walletAddress = await investmentFundInstance.methods.walletAddress().call();
     let balanceOfUnderlying = await compoundCEthContract.methods.balanceOfUnderlying(walletAddress).call();
     console.log(balanceOfUnderlying)
+    // already received in correct format just convert to hex
+    // TODO programmatically retreive compoundCEthContract and refactor front end for second phase
     // balanceOfUnderlying = Math.floor(web3Instance.utils.fromWei(balanceOfUnderlying)); // "4.000000005482408467" account for large decimals
     console.log(walletAddress);
     const amount = web3Instance.utils.toHex(balanceOfUnderlying);
