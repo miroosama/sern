@@ -44,44 +44,20 @@ export default function Web3Wrapper({ web3 }) {
       // const compoundWalletNetwork = CompoundWallet.networks[networkId];
      if (portfolioNetwork) {
        const portfolioContract = new web3.eth.Contract(Portfolio.abi, portfolioNetwork.address);
-       // const compoundWalletContract = new web3.eth.Contract(CompoundWallet.abi, compoundWalletNetwork.address);
-       // setCompoundWalletInstance(compoundWalletContract);
-
-       // create a new fund first
-       // const newFund = await portfolioContract.methods.startFund('new fund', 'moon').send({
-       //   from: accounts[0]
-       // });
-
-       // console.log(newFund)
        setPortfolio(portfolioContract)
-       // const fundList = await portfolioContract.methods.returnAllProjects().call();
-       // console.log(fundList)
-       // const investmentFundContract = new web3.eth.Contract(InvestmentFund.abi, fundList[0]);
-       // const investmentFund = await investmentFundContract.methods.title().call()
-
-       // console.log(investmentFundContract)
-       // console.log(investmentFund)
-
-       // const contribution = await investmentFundContract.methods.contribute().send({
-       //   from: accounts[0],
-       //   value: web3.utils.toWei('10', 'ether')
-       // });
-
-       // const newBalance = await investmentFundContract.methods.currentBalance().call();
-       // console.log(newBalance)
-
-       // const daiTokenBalance = await daiToken.methods.balanceOf(accounts[0]).call();
-       // setSmartContract({
-       //   ...smartContract,
-       //   daiToken
-       // });
-       // setDaiTokenBalance(daiTokenBalance.toString());
      } else {
        window.alert('contracts not detected');
      }
     };
     loadWeb3();
   }, []);
+
+  const startFund = async () => {
+    const newFund = await portfolio.methods.startFund('new fund', 'moon').send({
+      from: account
+    });
+    console.log(newFund)
+  };
 
   const getFundList = async () => {
     const fundList = await portfolio.methods.returnAllProjects().call();
@@ -91,18 +67,25 @@ export default function Web3Wrapper({ web3 }) {
 
   const getInvestmentContract = async () => {
     const investmentFundContract = new web3Instance.eth.Contract(InvestmentFund.abi, investmentFunds[0]);
-    setinvestmentFundInstance(investmentFundContract)
-    const n = await investmentFundContract.methods.currentBalance().call()
-    const inv = await investmentFundContract.methods.contribute().send({
+    console.log(investmentFundContract)
+    setinvestmentFundInstance(investmentFundContract);
+  }
+
+  const contributeToFund = async () => {
+    const n = await investmentFundInstance.methods.currentBalance().call();
+    const inv = await investmentFundInstance.methods.contribute().send({
       from: account,
       value: web3Instance.utils.toWei('1', 'ether')
-    })
-    const n2 = await investmentFundContract.methods.currentBalance().call()
+    });
+    const n2 = await investmentFundInstance.methods.currentBalance().call()
     console.log(inv)
     console.log(n)
     console.log(n2)
+  }
 
-    console.log(investmentFundContract)
+  const getInvestmentFundBalance = async () => {
+    const n2 = await investmentFundInstance.methods.currentBalance().call()
+    console.log(n2);
   }
 
   const vote = async () => {
@@ -111,7 +94,6 @@ export default function Web3Wrapper({ web3 }) {
     });
     console.log(vote)
   }
-
 
   // keep track of address to get balance for withdraw
   // delete invested amount
@@ -132,7 +114,7 @@ export default function Web3Wrapper({ web3 }) {
   const withdraw = async () => {
     const compoundCEthContractAddress = '0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5';
 
-const compoundCEthContract = new web3Instance.eth.Contract(compoundCEthContractAbi, compoundCEthContractAddress);
+    const compoundCEthContract = new web3Instance.eth.Contract(compoundCEthContractAbi, compoundCEthContractAddress);
 
     const walletAddress = await investmentFundInstance.methods.walletAddress().call();
     let balanceOfUnderlying = await compoundCEthContract.methods.balanceOfUnderlying(walletAddress).call();
@@ -151,6 +133,7 @@ const compoundCEthContract = new web3Instance.eth.Contract(compoundCEthContractA
     console.log(withdrawal)
   }
 
+  // get profit not balance
   const getProfit = async () => {
     const n2 = await investmentFundInstance.methods.profit().call()
     console.log(n2)
@@ -164,11 +147,20 @@ const compoundCEthContract = new web3Instance.eth.Contract(compoundCEthContractA
   return (
     <div>
       <Navbar account={account} />
+      <button onClick={startFund}>
+        Start fund
+      </button>
       <button onClick={getFundList}>
         getFundList
       </button>
       <button onClick={getInvestmentContract}>
-        getContract and contribute
+        get investment fund contract
+      </button>
+      <button onClick={contributeToFund}>
+        contributeToFund
+      </button>
+      <button onClick={getInvestmentFundBalance}>
+        get investment fund balance
       </button>
       <button onClick={vote}>
         vote
