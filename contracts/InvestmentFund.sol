@@ -8,7 +8,7 @@ contract InvestmentFund {
 
   address creator;
   address public walletAddress;
-  address[] internal hasWithdrawn;
+  address[] public hasWithdrawn;
   address[] public investors;
   address[] public voters;
   uint256 public currentBalance;
@@ -57,6 +57,10 @@ contract InvestmentFund {
     return voters;
   }
 
+  function getHasWithdrawn() external view returns (address[] memory) {
+    return hasWithdrawn;
+  }
+
   function hasParticipated(address[] storage _addressList, address _investor) internal view returns (bool) {
     bool participated = false;
     for (uint i = 0; i < _addressList.length; i++) {
@@ -68,16 +72,20 @@ contract InvestmentFund {
   }
 
   function invest(address payable _cEtherContract) public payable returns (bool) {
-    require(hasParticipated(investors, msg.sender), 'Unauthorized');
-    require (hasVotes(), 'Not enough votes');
+    bool participated = hasParticipated(investors, msg.sender);
+    bool sufficientVotes = hasVotes();
+    require(participated, 'Unauthorized');
+    require(sufficientVotes, 'Not enough votes');
     CompoundWallet compoundWallet = CompoundWallet(walletAddress);
     bool isInvested = compoundWallet.supplyEthToCompound.value(msg.value).gas(2500000)(_cEtherContract);
     return isInvested;
   }
 
   function withdrawInvestment(address payable _cEtherContract, uint256 _amount) public payable {
-    require(hasParticipated(investors, msg.sender), 'Unauthorized');
-    require (hasVotes(), 'Not enough votes');
+    bool participated = hasParticipated(investors, msg.sender);
+    bool sufficientVotes = hasVotes();
+    require(participated, 'Unauthorized');
+    require(sufficientVotes, 'Not enough votes');
     CompoundWallet compoundWallet = CompoundWallet(walletAddress);
     bool isProfit = compoundWallet.redeemCEth(_cEtherContract, _amount);
     if (isProfit) {
@@ -85,18 +93,22 @@ contract InvestmentFund {
     }
   }
 
-  function withdrawFunds() public payable {
+  function withdrawFunds() public payable returns (uint256) {
+    bool participated = hasParticipated(hasWithdrawn, msg.sender);
+    bool isAuthorized = hasParticipated(investors, msg.sender);
     require(profit > 0, 'Withdraw profit first');
-    require(hasParticipated(hasWithdrawn, msg.sender), 'Already withdrawn');
-    require(hasParticipated(investors, msg.sender), 'Unauthorized');
+    require(!participated, 'Already withdrawn');
+    require(isAuthorized, 'Unauthorized');
     uint256 initialInvestment = investments[msg.sender];
     uint256 percentageOfProfit = initialInvestment / currentBalance;
     uint256 amountToSend = profit * percentageOfProfit;
-    msg.sender.transfer(amountToSend);
+    address payable receiver = msg.sender;
+    receiver.transfer(amountToSend);
     hasWithdrawn.push(msg.sender);
     if (hasWithdrawn.length + 1 >= investors.length) {
       currentBalance = 0;
     }
+    return amountToSend;
   }
 
 }

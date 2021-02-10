@@ -133,6 +133,13 @@ export default function Web3Wrapper({ web3 }) {
     console.log(withdrawal)
   }
 
+  const closeAccount = async () => {
+    const dividends = await investmentFundInstance.methods.withdrawFunds().send({
+      from: account
+    });
+    console.log(dividends)
+  }
+
   // get profit not balance
   const getProfit = async () => {
     const n2 = await investmentFundInstance.methods.profit().call()
@@ -142,6 +149,11 @@ export default function Web3Wrapper({ web3 }) {
   const getVoters = async () => {
     const invest = await investmentFundInstance.methods.getVoters().call();
     console.log(invest)
+  }
+
+  const gethasWithdrawn = async () => {
+    const arr = await investmentFundInstance.methods.getHasWithdrawn().call();
+    console.log(arr)
   }
 
   return (
@@ -176,6 +188,12 @@ export default function Web3Wrapper({ web3 }) {
       </button>
       <button onClick={getProfit}>
         get profit
+      </button>
+      <button onClick={closeAccount}>
+        withdraw profits from fund
+      </button>
+      <button onClick={gethasWithdrawn}>
+        get has withdrawn
       </button>
     </div>
   );
