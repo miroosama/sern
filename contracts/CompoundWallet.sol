@@ -1,4 +1,4 @@
-pragma solidity ^0.6.0;
+pragma solidity >=0.4.16 <0.9.0;
 
 interface CEth {
     function mint() external payable;

@@ -1,4 +1,4 @@
-pragma solidity ^0.6.0;
+pragma solidity >=0.4.16 <0.9.0;
 
 import '@openzeppelin/contracts/math/SafeMath.sol';
 import './CompoundWallet.sol';
@@ -30,6 +30,12 @@ contract InvestmentFund {
     walletAddress = address(new CompoundWallet());
   }
 
+  modifier participatedAndVoted() {
+    require(hasParticipated(investors, msg.sender), 'Unauthorized');
+    require(hasVotes(), 'Not enough votes');
+    _;
+  }
+
   function contribute() external payable {
     investments[msg.sender] = investments[msg.sender].add(msg.value);
     currentBalance = currentBalance.add(msg.value);
@@ -49,8 +55,10 @@ contract InvestmentFund {
   }
 
   function hasVotes() internal view returns (bool) {
-    bool majorityVotes = voters.length >= (investors.length / 2);
-    return majorityVotes;
+    if (voters.length == 0) return false;
+    uint256 voterCount = uint(voters.length);
+    uint256 sufficientVotes = uint(investors.length) / 2;
+    return voterCount >= sufficientVotes;
   }
 
   function getVoters() external view returns (address[] memory) {
@@ -61,7 +69,10 @@ contract InvestmentFund {
     return hasWithdrawn;
   }
 
-  function hasParticipated(address[] storage _addressList, address _investor) internal view returns (bool) {
+  function hasParticipated(
+    address[] storage _addressList,
+    address _investor
+  ) internal view returns (bool) {
     bool participated = false;
     for (uint i = 0; i < _addressList.length; i++) {
       if (_addressList[i] == _investor) {
@@ -71,21 +82,16 @@ contract InvestmentFund {
     return participated;
   }
 
-  function invest(address payable _cEtherContract) public payable returns (bool) {
-    bool participated = hasParticipated(investors, msg.sender);
-    bool sufficientVotes = hasVotes();
-    require(participated, 'Unauthorized');
-    require(sufficientVotes, 'Not enough votes');
+  function invest(address payable _cEtherContract) participatedAndVoted public payable returns (bool) {
     CompoundWallet compoundWallet = CompoundWallet(walletAddress);
     bool isInvested = compoundWallet.supplyEthToCompound.value(msg.value).gas(2500000)(_cEtherContract);
     return isInvested;
   }
 
-  function withdrawInvestment(address payable _cEtherContract, uint256 _amount) public payable {
-    bool participated = hasParticipated(investors, msg.sender);
-    bool sufficientVotes = hasVotes();
-    require(participated, 'Unauthorized');
-    require(sufficientVotes, 'Not enough votes');
+  function withdrawInvestment(
+    address payable _cEtherContract,
+    uint256 _amount
+  ) participatedAndVoted public payable {
     CompoundWallet compoundWallet = CompoundWallet(walletAddress);
     bool isProfit = compoundWallet.redeemCEth(_cEtherContract, _amount);
     if (isProfit) {
@@ -94,11 +100,9 @@ contract InvestmentFund {
   }
 
   function withdrawFunds() public payable returns (uint256) {
-    bool participated = hasParticipated(hasWithdrawn, msg.sender);
-    bool isAuthorized = hasParticipated(investors, msg.sender);
     require(profit > 0, 'Withdraw profit first');
-    require(!participated, 'Already withdrawn');
-    require(isAuthorized, 'Unauthorized');
+    require(!hasParticipated(hasWithdrawn, msg.sender), 'Already withdrawn');
+    require(hasParticipated(investors, msg.sender), 'Unauthorized');
     uint256 initialInvestment = investments[msg.sender];
     uint256 percentageOfProfit = initialInvestment / currentBalance;
     uint256 amountToSend = profit * percentageOfProfit;
@@ -110,5 +114,4 @@ contract InvestmentFund {
     }
     return amountToSend;
   }
-
 }

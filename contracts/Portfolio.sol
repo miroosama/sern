@@ -1,4 +1,4 @@
-pragma solidity ^0.6.0;
+pragma solidity >=0.4.16 <0.9.0;
 
 import '@openzeppelin/contracts/math/SafeMath.sol';
 import './InvestmentFund.sol';
