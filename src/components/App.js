@@ -25,7 +25,7 @@ export default function App() {
   // }, [])
 
   return (
-    <div>
+    <div className="app">
       <Web3Wrapper />
     </div>
   );

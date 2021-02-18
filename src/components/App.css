@@ -1,1 +1,8 @@
-/* Styles go here */
+.app {
+ background-image: url('../assets/sern2back.jpg');
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+ height: 100vh;
+}
