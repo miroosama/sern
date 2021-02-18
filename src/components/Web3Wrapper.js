@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Web3 from 'web3';
+import axios from 'axios';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
-import { compoundCEthContractAbi } from '../abis/CompoundCEthMainnetAbi';
 import CompoundWallet from '../abis/CompoundWallet.json';
-import InvestmentFund from '../abis/InvestmentFund.json';
 import Portfolio from '../abis/Portfolio.json';
 import Navbar from './Navbar';
-
-const compoundCEthContractAddress = '0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5';
+import InvestmentFundContainer from './InvestmentFund/InvestmentFundContainer';
+import PortfolioContainer from './Portfolio/PortfolioContainer';
 
 export default function Web3Wrapper({ web3 }) {
   const [account, setAccount] = useState();
@@ -40,7 +41,7 @@ export default function Web3Wrapper({ web3 }) {
       // setAccount(accounts[0]);
       setWeb3Instance(web3);
       const portfolioNetwork = Portfolio.networks[networkId];
-      const investmentFundNetwork = InvestmentFund.networks[networkId];
+      // const investmentFundNetwork = InvestmentFund.networks[networkId];
       // const compoundWalletNetwork = CompoundWallet.networks[networkId];
      if (portfolioNetwork) {
        const portfolioContract = new web3.eth.Contract(Portfolio.abi, portfolioNetwork.address);
@@ -52,149 +53,36 @@ export default function Web3Wrapper({ web3 }) {
     loadWeb3();
   }, []);
 
-  const startFund = async () => {
-    const newFund = await portfolio.methods.startFund('new fund', 'moon').send({
-      from: account
-    });
-    console.log(newFund)
+  const getMarketInfo = async() => {
+    const start = Math.floor((Date.now() / 1000) - 3600)
+    const end = Math.floor(Date.now() / 1000)
+    //display cEth value from cTOken... look into supplying to DAI or ETH
+    try {
+        const resp = await axios.get(`https://api.compound.finance/api/v2//ctoken`);
+        console.log(resp);
+        console.log(resp.data);
+    } catch (err) {
+        // Handle Error Here
+        console.error(err);
+    }
   };
-
-  const getFundList = async () => {
-    const fundList = await portfolio.methods.returnAllProjects().call();
-    console.log(fundList)
-    setInvestmentFunds(fundList)
-  }
-
-  const getInvestmentContract = async () => {
-    const investmentFundContract = new web3Instance.eth.Contract(InvestmentFund.abi, investmentFunds[0]);
-    console.log(investmentFundContract)
-    setinvestmentFundInstance(investmentFundContract);
-  }
-
-  const contributeToFund = async () => {
-    const n = await investmentFundInstance.methods.currentBalance().call();
-    const inv = await investmentFundInstance.methods.contribute().send({
-      from: account,
-      value: web3Instance.utils.toWei('1', 'ether')
-    });
-    const n2 = await investmentFundInstance.methods.currentBalance().call()
-    console.log(inv)
-    console.log(n)
-    console.log(n2)
-  }
-
-  const getInvestmentFundBalance = async () => {
-    const n2 = await investmentFundInstance.methods.currentBalance().call()
-    console.log(n2);
-  }
-
-  const vote = async () => {
-    const vote = await investmentFundInstance.methods.vote().send({
-      from: account
-    });
-    console.log(vote)
-  }
-
-  // keep track of address to get balance for withdraw
-  // delete invested amount
-  const invest = async () => {
-    const n2 = await investmentFundInstance.methods.currentBalance().call()
-    console.log(n2)
-    console.log(account)
-    const invest = await investmentFundInstance.methods.invest(compoundCEthContractAddress).send({
-      from: account,
-      value: web3Instance.utils.toHex(n2),
-      gasLimit: web3Instance.utils.toHex(750000),
-      gasPrice: web3Instance.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
-    });
-    console.log(invest)
-  }
-
-  // wip withdraw GET CETH CONTRACT INSTANCE AND GET BALANCE OF UNDELRYING TO PASS INTO REDEEM
-  const withdraw = async () => {
-    const compoundCEthContractAddress = '0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5';
-
-    const compoundCEthContract = new web3Instance.eth.Contract(compoundCEthContractAbi, compoundCEthContractAddress);
-
-    const walletAddress = await investmentFundInstance.methods.walletAddress().call();
-    let balanceOfUnderlying = await compoundCEthContract.methods.balanceOfUnderlying(walletAddress).call();
-    console.log(balanceOfUnderlying)
-    // already received in correct format just convert to hex
-    // TODO programmatically retreive compoundCEthContract and refactor front end for second phase
-    // balanceOfUnderlying = Math.floor(web3Instance.utils.fromWei(balanceOfUnderlying)); // "4.000000005482408467" account for large decimals
-    console.log(walletAddress);
-    const amount = web3Instance.utils.toHex(balanceOfUnderlying);
-    console.log(amount)
-    const withdrawal = await investmentFundInstance.methods.withdrawInvestment(compoundCEthContractAddress, amount).send({
-      from: account,
-      gasLimit: web3Instance.utils.toHex(750000),
-      gasPrice: web3Instance.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
-    });
-    console.log(withdrawal)
-  }
-
-  const closeAccount = async () => {
-    const dividends = await investmentFundInstance.methods.withdrawFunds().send({
-      from: account
-    });
-    console.log(dividends)
-  }
-
-  // get profit not balance
-  const getProfit = async () => {
-    const n2 = await investmentFundInstance.methods.profit().call()
-    console.log(n2)
-  }
-
-  const getVoters = async () => {
-    const invest = await investmentFundInstance.methods.getVoters().call();
-    console.log(invest)
-  }
-
-  const gethasWithdrawn = async () => {
-    const arr = await investmentFundInstance.methods.getHasWithdrawn().call();
-    console.log(arr)
-  }
 
   return (
     <div>
       <Navbar account={account} />
-      <button onClick={startFund}>
-        Start fund
-      </button>
-      <button onClick={getFundList}>
-        getFundList
-      </button>
-      <button onClick={getInvestmentContract}>
-        get investment fund contract
-      </button>
-      <button onClick={contributeToFund}>
-        contributeToFund
-      </button>
-      <button onClick={getInvestmentFundBalance}>
-        get investment fund balance
-      </button>
-      <button onClick={vote}>
-        vote
-      </button>
-      <button onClick={invest}>
-        invest
-      </button>
-      <button onClick={getVoters}>
-        getVoters
-      </button>
-      <button onClick={withdraw}>
-        withdraw
-      </button>
-      <button onClick={getProfit}>
-        get profit
-      </button>
-      <button onClick={closeAccount}>
-        withdraw profits from fund
-      </button>
-      <button onClick={gethasWithdrawn}>
-        get has withdrawn
-      </button>
+      <Button onClick={getMarketInfo}>
+        getMarketInfo
+      </Button>
+      <PortfolioContainer
+        account={account}
+        portfolioInstance={portfolio}
+        web3Instance={web3Instance}
+      />
+      <InvestmentFundContainer
+        account={account}
+        investmentFundInstance={investmentFundInstance}
+        web3Instance={web3Instance}
+      />
     </div>
   );
 }

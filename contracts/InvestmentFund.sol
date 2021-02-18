@@ -87,7 +87,7 @@ contract InvestmentFund {
     bool isInvested = compoundWallet.supplyEthToCompound.value(msg.value).gas(2500000)(_cEtherContract);
     return isInvested;
   }
-
+// finish validations and modifiers and withdrawal math. check actual profit values. Read compound docs on calc profits
   function withdrawInvestment(
     address payable _cEtherContract,
     uint256 _amount

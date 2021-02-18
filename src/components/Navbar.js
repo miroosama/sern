@@ -1,26 +1,43 @@
-import React from 'react'
-import farmer from '../farmer.png'
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
-export default function Navbar({ account }) {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  appBar: {
+    backgroundColor: 'black'
+  },
+  menuButton: {
+    marginRight: theme.spacing(10),
+  },
+  title: {
+    flexGrow: 1,
+    fontSize: '20px'
+  },
+  account: {
+    fontSize: '14px'
+  },
+}));
+
+export default function NavBar({ account }) {
+  const classes = useStyles();
+
   return (
-    <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a
-        className="navbar-brand col-sm-3 col-md-2 mr-0"
-        href="http://www.dappuniversity.com/bootcamp"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img src={farmer} width="30" height="30" className="d-inline-block align-top" alt="" />
-        &nbsp; DApp Token Farm
-      </a>
-
-      <ul className="navbar-nav px-3">
-        <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-          <small className="text-secondary">
-            <small id="account">{account}</small>
-          </small>
-        </li>
-      </ul>
-    </nav>
+    <div className={classes.root}>
+      <AppBar position="static" className={classes.appBar}>
+        <Toolbar>
+          <Typography className={classes.title}>
+            ienai
+          </Typography>
+          <Typography className={classes.account}>
+            { account }
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 }
