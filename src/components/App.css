@@ -1,8 +1,14 @@
 .app {
- background-image: url('../assets/sern2back.jpg');
+ background-image: url('../assets/ienai-background.jpg');
  -webkit-background-size: cover;
  -moz-background-size: cover;
  -o-background-size: cover;
  background-size: cover;
+ background-attachment: fixed;
+ background-color: black;
  height: 100vh;
+}
+
+.home {
+  padding: 5% 5% 0%;
 }

@@ -1,15 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import {
+  Grid,
+  Button,
+  Paper,
+} from '@material-ui/core';
 
 import { compoundCEthContractAbi } from '../../abis/CompoundCEthMainnetAbi';
 
 const compoundCEthContractAddress = '0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5';
 
-export default function InvestmentFundContainer({ web3Instance, account }) {
+export default function InvestmentFundContainer() {
   const investmentFundInstance = useSelector((state) => state.investmentFund.investmentFundInstance);
-  
+  const web3Instance = useSelector((state) => state.chain.web3Instance);
+  const account = useSelector((state) => state.chain.account);
+
   const contributeToFund = async () => {
     const n = await investmentFundInstance.methods.currentBalance().call();
     const inv = await investmentFundInstance.methods.contribute().send({
@@ -94,33 +99,35 @@ export default function InvestmentFundContainer({ web3Instance, account }) {
 
   return (
     <Grid container>
-      <Button onClick={contributeToFund}>
-        contributeToFund
-      </Button>
-      <Button onClick={getInvestmentFundBalance}>
-        get investment fund balance
-      </Button>
-      <Button onClick={vote}>
-        vote
-      </Button>
-      <Button onClick={invest}>
-        invest
-      </Button>
-      <Button onClick={getVoters}>
-        getVoters
-      </Button>
-      <Button onClick={withdraw}>
-        withdraw
-      </Button>
-      <Button onClick={getProfit}>
-        get profit
-      </Button>
-      <Button onClick={closeAccount}>
-        withdraw profits from fund
-      </Button>
-      <Button onClick={gethasWithdrawn}>
-        get has withdrawn
-      </Button>
+      <Paper>
+        <Button onClick={contributeToFund}>
+          contributeToFund
+        </Button>
+        <Button onClick={getInvestmentFundBalance}>
+          get investment fund balance
+        </Button>
+        <Button onClick={vote}>
+          vote
+        </Button>
+        <Button onClick={invest}>
+          invest
+        </Button>
+        <Button onClick={getVoters}>
+          getVoters
+        </Button>
+        <Button onClick={withdraw}>
+          withdraw
+        </Button>
+        <Button onClick={getProfit}>
+          get profit
+        </Button>
+        <Button onClick={closeAccount}>
+          withdraw profits from fund
+        </Button>
+        <Button onClick={gethasWithdrawn}>
+          get has withdrawn
+        </Button>
+      </Paper>
     </Grid>
   );
 }
