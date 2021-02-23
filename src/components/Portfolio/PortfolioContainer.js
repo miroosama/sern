@@ -7,7 +7,8 @@ import {
   Paper,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Typography
 } from '@material-ui/core';
 
 import InvestmentFund from '../../abis/InvestmentFund.json';
@@ -48,14 +49,15 @@ export default function PortfolioContainer() {
 
   return(
     <Grid container spacing={1} justify="space-between">
-      <Grid item xs={12}>
-        <Paper>
-          <Button onClick={startFund}>
-            Start fund
-          </Button>
-        </Paper>
-      </Grid>
-      <Grid item xs={12}>
+    <Grid item xs={4} style={{ alignItems: 'flex-end'}}>
+      <Button onClick={startFund}>
+        Start fund
+      </Button>
+    </Grid>
+      <Grid item xs={4}>
+        <Typography variant="h5">
+          Fund List
+        </Typography>
         <Paper>
           <List component="nav" aria-label="Investment Fund List">
             { investmentFunds.length

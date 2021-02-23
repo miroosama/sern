@@ -27,18 +27,14 @@ export default function Web3Wrapper({ web3 }) {
 
   useEffect(() => {
     const loadWeb3 = async () => {
-      let accounts;
       if (window.ethereum) {
         try {
           const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
-          // setAccounts(accounts);
-          accounts = accs;
           dispatch(setAccount(accs[0]));
         } catch (error) {
           if (error.code === 4001) {
             // User rejected request
           }
-
           // setError(error);
         }
       }
@@ -71,6 +67,20 @@ export default function Web3Wrapper({ web3 }) {
     loadWeb3();
   }, []);
 
+  const enableMetamask = async () => {
+    if (window.ethereum) {
+      try {
+        const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        dispatch(setAccount(accs[0]));
+      } catch (error) {
+        if (error.code === 4001) {
+          // User rejected request
+        }
+        // setError(error);
+      }
+    }
+  };
+
   const ethSupply = useMemo(() => (
     supplyRate
     ? ` ${(supplyRate * 100).toFixed(2)}%`
@@ -81,10 +91,19 @@ export default function Web3Wrapper({ web3 }) {
     <div>
       <Navbar />
       <div className="home">
-        <Typography variant="h2" gutterBottom>
-          ETH Supply APY:
-          { ethSupply }
-        </Typography>
+        <Grid container justify="space-between">
+          <Grid item>
+            <Typography variant="h4" gutterBottom>
+              ETH Supply APY:
+              { ethSupply }
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button onClick={enableMetamask}>
+              Enable Metamask
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     </div>
   );

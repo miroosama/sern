@@ -21,29 +21,37 @@ export const muiTheme = createMuiTheme({
     },
     MuiButton: {
     root: {
+      '&:hover': {
+        backgroundColor: 'rgb(50, 50, 50, 0.5)',
+      },
       color: 'white',
-      '&&.Mui-disabled': {
-        '& .geoMenuLabel': {
-          color: 'white'
-        },
-        '& svg': {
-          color: 'rgba(0,0,0,0)'
-        }
-      }
     },
   },
   MuiTypography: {
-    h2: {
+    h4: {
+      color: 'white'
+    },
+    h5: {
+      color: 'white'
+    },
+    h6: {
       color: 'white'
     }
   },
   MuiPaper: {
     root: {
-      backgroundColor: 'rgb(10, 10, 50)',
+      backgroundColor: 'rgb(0, 0, 0)',
       color: 'white',
     },
     elevation3: {
       boxShadow: '0 4px 8px 0 rgb(0 0 0 / 15%)'
+    }
+  },
+  MuiListItem: {
+    button: {
+      '&&:hover': {
+        background: 'rgb(50, 50, 50, 0.5)'
+      }
     }
   },
 }});
