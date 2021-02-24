@@ -3,11 +3,10 @@ pragma solidity >=0.4.16 <0.9.0;
 import '@openzeppelin/contracts/math/SafeMath.sol';
 import './CompoundWallet.sol';
 
-contract InvestmentFund {
+contract InvestmentFund is CompoundWallet {
   using SafeMath for uint256;
 
   address creator;
-  address public walletAddress;
   address[] public hasWithdrawn;
   address[] public investors;
   address[] public voters;
@@ -28,7 +27,6 @@ contract InvestmentFund {
     desc = _desc;
     currentBalance = 0;
     profit = 0;
-    walletAddress = address(new CompoundWallet());
   }
 
   modifier participatedAndVoted() {
@@ -83,9 +81,8 @@ contract InvestmentFund {
     return participated;
   }
 
-  function invest(address payable _cEtherContract) participatedAndVoted public payable returns (bool) {
-    CompoundWallet compoundWallet = CompoundWallet(walletAddress);
-    bool isInvested = compoundWallet.supplyEthToCompound.value(msg.value).gas(2500000)(_cEtherContract);
+  function invest(address payable _cEtherContract, uint256 _amount) participatedAndVoted public returns (bool) {
+    bool isInvested = supplyEthToCompound(_cEtherContract, _amount);
     if (isInvested) {
       inCycle = true;
       delete voters;
@@ -97,8 +94,7 @@ contract InvestmentFund {
     address payable _cEtherContract,
     uint256 _amount
   ) participatedAndVoted public payable {
-    CompoundWallet compoundWallet = CompoundWallet(walletAddress);
-    bool isProfit = compoundWallet.redeemCEth(_cEtherContract, _amount);
+    bool isProfit = redeemCEth(_cEtherContract, _amount);
     if (isProfit) {
       profit = _amount;
       delete voters;

@@ -22,14 +22,13 @@ export default function PortfolioContainer() {
   const account = useSelector((state) => state.chain.account);
   const [investmentFunds, setInvestmentFunds] = useState([]);
 
-  // todo clicking on fund sets the instance and goes to route for further actions/ hookup react router
+  const getFundList = async () => {
+    const fundList = await portfolioInstance.methods.returnAllProjects().call();
+    console.log(fundList);
+    setInvestmentFunds(fundList);
+  };
 
   useEffect(() => {
-    const getFundList = async () => {
-      const fundList = await portfolioInstance.methods.returnAllProjects().call();
-      console.log(fundList);
-      setInvestmentFunds(fundList);
-    }
     if (portfolioInstance) getFundList();
   }, [portfolioInstance])
 
@@ -37,7 +36,8 @@ export default function PortfolioContainer() {
     const newFund = await portfolioInstance.methods.startFund('new fund', 'moon').send({
       from: account
     });
-    console.log(newFund)
+    console.log(newFund);
+    getFundList();
   };
 
   const getInvestmentContract = async (fund) => {
