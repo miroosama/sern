@@ -16,6 +16,7 @@ contract InvestmentFund {
   uint256 public votes;
   string public title;
   string public desc;
+  bool public inCycle;
 
   mapping(address => uint256) public investments;
 
@@ -85,6 +86,10 @@ contract InvestmentFund {
   function invest(address payable _cEtherContract) participatedAndVoted public payable returns (bool) {
     CompoundWallet compoundWallet = CompoundWallet(walletAddress);
     bool isInvested = compoundWallet.supplyEthToCompound.value(msg.value).gas(2500000)(_cEtherContract);
+    if (isInvested) {
+      inCycle = true;
+      delete voters;
+    }
     return isInvested;
   }
 // finish validations and modifiers and withdrawal math. check actual profit values. Read compound docs on calc profits
@@ -96,6 +101,7 @@ contract InvestmentFund {
     bool isProfit = compoundWallet.redeemCEth(_cEtherContract, _amount);
     if (isProfit) {
       profit = _amount;
+      delete voters;
     }
   }
 
@@ -109,7 +115,7 @@ contract InvestmentFund {
     address payable receiver = msg.sender;
     receiver.transfer(amountToSend);
     hasWithdrawn.push(msg.sender);
-    if (hasWithdrawn.length + 1 >= investors.length) {
+    if (hasWithdrawn.length == investors.length) {
       currentBalance = 0;
     }
     return amountToSend;

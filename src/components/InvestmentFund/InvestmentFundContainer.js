@@ -36,7 +36,7 @@ export default function InvestmentFundContainer() {
     });
     console.log(vote)
   }
-
+  console.log(investmentFundInstance)
   // keep track of address to get balance for withdraw
   // delete invested amount
   const invest = async () => {
@@ -49,6 +49,8 @@ export default function InvestmentFundContainer() {
       gasLimit: web3Instance.utils.toHex(750000),
       gasPrice: web3Instance.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
     });
+    const cycle = await investmentFundInstance.methods.inCycle().call();
+    console.log(cycle)
     console.log(invest)
   }
 
@@ -58,6 +60,7 @@ export default function InvestmentFundContainer() {
 
     const compoundCEthContract = new web3Instance.eth.Contract(compoundCEthContractAbi, compoundCEthContractAddress);
 
+    // extract get balance of underlying for use global
     const walletAddress = await investmentFundInstance.methods.walletAddress().call();
     let balanceOfUnderlying = await compoundCEthContract.methods.balanceOfUnderlying(walletAddress).call();
     console.log(balanceOfUnderlying)
@@ -76,6 +79,9 @@ export default function InvestmentFundContainer() {
   }
 
   const closeAccount = async () => {
+    // const initialInvestment = await investmentFundInstance.methods.investments(account).call();
+    // const percentageOfProfit = initialInvestment / fundBalance;
+    // const amountToSend = profit * percentageOfProfit;
     const dividends = await investmentFundInstance.methods.withdrawFunds().send({
       from: account
     });
