@@ -21,7 +21,7 @@ contract InvestmentFund is CompoundWallet {
 
   event FundingReceived(address investor, uint amount, uint currentTotal);
 
-  constructor(string memory _title, string memory _desc) public {
+  constructor(string memory _title, string memory _desc) public payable {
     creator = msg.sender;
     title = _title;
     desc = _desc;

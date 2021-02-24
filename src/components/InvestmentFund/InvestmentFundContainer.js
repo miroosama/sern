@@ -59,13 +59,20 @@ export default function InvestmentFundContainer() {
   const withdraw = async () => {
 
     // extract get balance of underlying for use global
-    let balanceOfUnderlying = await compoundCEthContract.methods.balanceOfUnderlying('0xA669a08cB55b24Cb046e3dEC201f8e783F04Ac47').call();
-    console.log(balanceOfUnderlying)
+    let balanceOfUnderlying = await compoundCEthContract.methods.balanceOfUnderlying(investmentFundInstance._address).call();
+    // console.log(balanceOfUnderlying)
     // already received in correct format just convert to hex
     // TODO programmatically retreive compoundCEthContract and refactor front end for second phase
     // balanceOfUnderlying = Math.floor(web3Instance.utils.fromWei(balanceOfUnderlying)); // "4.000000005482408467" account for large decimals
     const amount = web3Instance.utils.toHex(balanceOfUnderlying);
     console.log(amount)
+    // let cTokenBalance = await compoundCEthContract.methods.balanceOf(investmentFundInstance._address).call();
+    //  console.log(cTokenBalance)
+    // cTokenBalance = (cTokenBalance / 1e8).toString();
+    // console.log("MyContract's cETH Token Balance:", cTokenBalance);
+
+// Call redeem based on a cToken amount
+    // const amount = web3Instance.utils.toHex(cTokenBalance * 1e8);
     const withdrawal = await investmentFundInstance.methods.withdrawInvestment(compoundCEthContractAddress, amount).send({
       from: account,
       gasLimit: web3Instance.utils.toHex(750000),
@@ -100,13 +107,13 @@ export default function InvestmentFundContainer() {
 
   useEffect(() => {
     const getCompoundBalance = async () => {
-      const a = await web3Instance.eth.getBalance("0xA669a08cB55b24Cb046e3dEC201f8e783F04Ac47")
+      const a = await web3Instance.eth.getBalance(investmentFundInstance._address)
       console.log(a)
       // const walletAddress = await investmentFundInstance.methods.walletAddress().call();
-      const compoundBalance = await compoundCEthContract.methods.balanceOfUnderlying('0xA669a08cB55b24Cb046e3dEC201f8e783F04Ac47').call();
+      const compoundBalance = await compoundCEthContract.methods.balanceOfUnderlying(investmentFundInstance._address).call();
       console.log(compoundBalance)
-      const cTokenBalance = await compoundCEthContract.methods.balanceOf('0xA669a08cB55b24Cb046e3dEC201f8e783F04Ac47').call();
-   console.log(cTokenBalance)
+   //    const cTokenBalance = await compoundCEthContract.methods.balanceOf(investmentFundInstance._address).call();
+   // console.log(cTokenBalance)
       setBalanceInvested(compoundBalance);
     };
     getCompoundBalance();
