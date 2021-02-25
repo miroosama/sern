@@ -10,6 +10,8 @@ interface CEth {
     function redeem(uint) external returns (uint);
 
     function redeemUnderlying(uint) external returns (uint);
+
+    function balanceOfUnderlying(address) external returns (uint);
 }
 
 
@@ -30,15 +32,19 @@ contract CompoundWallet {
     cToken.mint.value(_amount).gas(250000)();
     return true;
   }
-
-  function redeemCEth(address _cEtherContract, uint256 amount) public returns (bool) {
+  // convert back to eth from cToken
+  function redeemCEth(address _cEtherContract, address _fundAddress) public returns (bool) {
     CEth cToken = CEth(_cEtherContract);
+    uint256 tokens = cToken.balanceOfUnderlying(_fundAddress);
 
-    uint256 redeemResult = cToken.redeem(amount);
+    uint256 redeemResult = cToken.redeemUnderlying(tokens);
 
+    emit WalletLog("tokensAttempted", tokens);
     emit WalletLog("If this is not 0, there was an error", redeemResult);
 
     return true;
   }
+
+  fallback() external payable {}
 
 }

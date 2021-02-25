@@ -90,17 +90,14 @@ contract InvestmentFund is CompoundWallet {
     return isInvested;
   }
 // finish validations and modifiers and withdrawal math. check actual profit values. Read compound docs on calc profits
-  function withdrawInvestment(
-    address payable _cEtherContract,
-    uint256 _amount
-  ) participatedAndVoted public payable {
-    bool isProfit = redeemCEth(_cEtherContract, _amount);
+  function withdrawInvestment(address payable _cEtherContract) participatedAndVoted public payable {
+    bool isProfit = redeemCEth(_cEtherContract, address(this));
     if (isProfit) {
       profit = _amount;
       delete voters;
     }
   }
-
+  // rewrite way of checking for profit, grab from cEth interface
   function withdrawFunds() public payable returns (uint256) {
     require(profit > 0, 'Withdraw profit first');
     require(!hasParticipated(hasWithdrawn, msg.sender), 'Already withdrawn');
