@@ -10,7 +10,7 @@ contract InvestmentFund is CompoundWallet {
   address[] public hasWithdrawn;
   address[] public investors;
   address[] public voters;
-  uint256 public currentBalance;
+  uint256 public fundsRaised;
   uint256 public profit;
   uint256 public votes;
   string public title;
@@ -25,7 +25,7 @@ contract InvestmentFund is CompoundWallet {
     creator = msg.sender;
     title = _title;
     desc = _desc;
-    currentBalance = 0;
+    fundsRaised = 0;
     profit = 0;
   }
 
@@ -37,13 +37,13 @@ contract InvestmentFund is CompoundWallet {
 
   function contribute() external payable {
     investments[msg.sender] = investments[msg.sender].add(msg.value);
-    currentBalance = currentBalance.add(msg.value);
+    fundsRaised = fundsRaised.add(msg.value);
     bool hasInvested = hasParticipated(investors, msg.sender);
     if (!hasInvested) {
       investors.push(msg.sender);
     }
 
-    emit FundingReceived(msg.sender, msg.value, currentBalance);
+    emit FundingReceived(msg.sender, msg.value, fundsRaised);
   }
 
   function vote() external {
@@ -93,24 +93,24 @@ contract InvestmentFund is CompoundWallet {
   function withdrawInvestment(address payable _cEtherContract) participatedAndVoted public payable {
     bool isProfit = redeemCEth(_cEtherContract, address(this));
     if (isProfit) {
-      profit = _amount;
       delete voters;
     }
   }
   // rewrite way of checking for profit, grab from cEth interface
-  function withdrawFunds() public payable returns (uint256) {
-    require(profit > 0, 'Withdraw profit first');
+  function withdrawFunds(uint _amount) public payable returns (bool) {
     require(!hasParticipated(hasWithdrawn, msg.sender), 'Already withdrawn');
     require(hasParticipated(investors, msg.sender), 'Unauthorized');
-    uint256 initialInvestment = investments[msg.sender];
-    uint256 percentageOfProfit = initialInvestment / currentBalance;
-    uint256 amountToSend = profit * percentageOfProfit;
     address payable receiver = msg.sender;
-    receiver.transfer(amountToSend);
+    receiver.transfer(_amount);
     hasWithdrawn.push(msg.sender);
-    if (hasWithdrawn.length == investors.length) {
-      currentBalance = 0;
+    if (hasWithdrawn.length + 1 >= investors.length) {
+      for (uint i = 0; i < investors.length; i++) {
+        investments[investors[i]] = 0;
+      }
+      inCycle = false;
+      delete investors;
+      delete hasWithdrawn;
     }
-    return amountToSend;
+    return true;
   }
 }

@@ -15,7 +15,7 @@ export default function InvestmentFundContainer() {
   const investmentFundInstance = useSelector((state) => state.investmentFund.investmentFundInstance);
   const web3Instance = useSelector((state) => state.chain.web3Instance);
   const account = useSelector((state) => state.chain.account);
-  const [fundBalance, setFundBalance] = useState(0);
+  const [raisedFunds, setRaisedFunds] = useState(0);
   const [voteCount, setVoteCount] = useState(0);
   const [profit, setProfit] = useState(0);
   const [balanceInvested, setBalanceInvested] = useState(0);
@@ -25,7 +25,7 @@ export default function InvestmentFundContainer() {
   const compoundCEthContract = new web3Instance.eth.Contract(compoundCEthContractAbi, compoundCEthContractAddress);
 
   const contributeToFund = async () => {
-    const n = await investmentFundInstance.methods.currentBalance().call();
+    const n = await investmentFundInstance.methods.fundsRaised().call();
     const inv = await investmentFundInstance.methods.contribute().send({
       from: account,
       value: web3Instance.utils.toWei('1', 'ether')
@@ -41,7 +41,7 @@ export default function InvestmentFundContainer() {
   // keep track of address to get balance for withdraw
   // delete invested amount
   const invest = async () => {
-    // const n2 = await investmentFundInstance.methods.currentBalance().call()
+    // const n2 = await investmentFundInstance.methods.fundsRaised().call()
     const n2 = await web3Instance.eth.getBalance(investmentFundInstance._address);
     console.log(n2)
     console.log(account)
@@ -84,9 +84,14 @@ export default function InvestmentFundContainer() {
   }
 
   const closeAccount = async () => {
-    const dividends = await investmentFundInstance.methods.withdrawFunds().send({
+    const seedFund = await investmentFundInstance.methods.investments(account).call();
+    const percentageOfProfit = seedFund / raisedFunds;
+    const profit = await web3Instance.eth.getBalance(investmentFundInstance._address);
+    let amountToSend = profit * percentageOfProfit;
+    const dividends = await investmentFundInstance.methods.withdrawFunds(amountToSend.toString()).send({
       from: account
     });
+        // amountToSend = web3Instance.utils.toHex(amountToSend);
     console.log(dividends)
   }
 
@@ -96,10 +101,10 @@ export default function InvestmentFundContainer() {
       const desc = await investmentFundInstance.methods.desc().call();
       const profit = await investmentFundInstance.methods.profit().call();
       const investorsVoted = await investmentFundInstance.methods.getVoters().call();
-      const balanceOfFund = await investmentFundInstance.methods.currentBalance().call();
+      const fundsRaised = await investmentFundInstance.methods.fundsRaised().call();
       setProfit(profit);
       setVoteCount(investorsVoted.length);
-      setFundBalance(balanceOfFund);
+      setRaisedFunds(fundsRaised);
       setTitle(title);
       setDescription(desc);
       // setBalanceInvested(compoundBalance)
@@ -145,7 +150,7 @@ export default function InvestmentFundContainer() {
         Vote Count: { voteCount }
       </Typography>
       <Typography variant="h6">
-        Fund Contributions: { fundBalance }
+        Funds Raised: { raisedFunds }
       </Typography>
       <Typography variant="h6">
         Current Investment Balance: { balanceInvested }
