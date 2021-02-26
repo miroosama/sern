@@ -36,16 +36,11 @@ export default function InvestmentFundContainer() {
     const vote = await investmentFundInstance.methods.vote().send({
       from: account
     });
-    console.log(vote)
-  }
-  // keep track of address to get balance for withdraw
-  // delete invested amount
+  };
+
   const invest = async () => {
-    // const n2 = await investmentFundInstance.methods.fundsRaised().call()
-    const n2 = await web3Instance.eth.getBalance(investmentFundInstance._address);
-    console.log(n2)
-    console.log(account)
-    const invest = await investmentFundInstance.methods.invest(compoundCEthContractAddress, web3Instance.utils.toHex(n2)).send({
+    const fundToInvest = await web3Instance.eth.getBalance(investmentFundInstance._address);
+    const invest = await investmentFundInstance.methods.invest(compoundCEthContractAddress, web3Instance.utils.toHex(fundToInvest)).send({
       from: account,
       gasLimit: web3Instance.utils.toHex(750000),
       gasPrice: web3Instance.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
@@ -53,35 +48,17 @@ export default function InvestmentFundContainer() {
     const cycle = await investmentFundInstance.methods.inCycle().call();
     console.log(cycle)
     console.log(invest)
-  }
+  };
 
-  // wip withdraw GET CETH CONTRACT INSTANCE AND GET BALANCE OF UNDELRYING TO PASS INTO REDEEM
   const withdraw = async () => {
-
-    // extract get balance of underlying for use global
     let balanceOfUnderlying = await compoundCEthContract.methods.balanceOfUnderlying(investmentFundInstance._address).call();
-    // console.log(balanceOfUnderlying)
     balanceOfUnderlying = web3Instance.utils.fromWei(balanceOfUnderlying, 'wei');
-    // balanceOfUnderlyingEth = web3.utils.fromWei(balanceOfUnderlying).toString();
-    // already received in correct format just convert to hex
-    // TODO programmatically retreive compoundCEthContract and refactor front end for second phase
-    // balanceOfUnderlying = Math.floor(web3Instance.utils.fromWei(balanceOfUnderlying)); // "4.000000005482408467" account for large decimals
-    // const amount = web3Instance.utils.toHex(balanceOfUnderlying);
-    console.log(balanceOfUnderlying)
-    // let cTokenBalance = await compoundCEthContract.methods.balanceOf(investmentFundInstance._address).call();
-    //  console.log(cTokenBalance)
-    // cTokenBalance = (cTokenBalance / 1e8).toString();
-    // console.log("MyContract's cETH Token Balance:", cTokenBalance);
-
-// Call redeem based on a cToken amount
-    // const amount = web3Instance.utils.toHex(cTokenBalance * 1e8);
     const withdrawal = await investmentFundInstance.methods.withdrawInvestment(compoundCEthContractAddress).send({
       from: account,
       gasLimit: web3Instance.utils.toHex(750000),
       gasPrice: web3Instance.utils.toHex(20000000000), // use ethgasstation.info (mainnet only)
     });
-    console.log(withdrawal)
-  }
+  };
 
   const closeAccount = async () => {
     const seedFund = await investmentFundInstance.methods.investments(account).call();
@@ -91,15 +68,13 @@ export default function InvestmentFundContainer() {
     const dividends = await investmentFundInstance.methods.withdrawFunds(amountToSend.toString()).send({
       from: account
     });
-        // amountToSend = web3Instance.utils.toHex(amountToSend);
-    console.log(dividends)
-  }
+  };
 
   useEffect(() => {
     const getContractData = async () => {
       const title = await investmentFundInstance.methods.title().call();
       const desc = await investmentFundInstance.methods.desc().call();
-      const profit = await investmentFundInstance.methods.profit().call();
+      const profit = await web3Instance.eth.getBalance(investmentFundInstance._address);
       const investorsVoted = await investmentFundInstance.methods.getVoters().call();
       const fundsRaised = await investmentFundInstance.methods.fundsRaised().call();
       setProfit(profit);
@@ -114,15 +89,7 @@ export default function InvestmentFundContainer() {
 
   useEffect(() => {
     const getCompoundBalance = async () => {
-      const a = await web3Instance.eth.getBalance(investmentFundInstance._address)
-      const b = await web3Instance.eth.getBalance('0x4F3Acc0d0C891B4306bA6F90EcF5b2F818697a41')
-      console.log(a)
-      console.log(b)
-      // const walletAddress = await investmentFundInstance.methods.walletAddress().call();
       const compoundBalance = await compoundCEthContract.methods.balanceOfUnderlying(investmentFundInstance._address).call();
-      console.log(compoundBalance)
-   //    const cTokenBalance = await compoundCEthContract.methods.balanceOf(investmentFundInstance._address).call();
-   // console.log(cTokenBalance)
       setBalanceInvested(compoundBalance);
     };
     getCompoundBalance();

@@ -11,7 +11,6 @@ contract InvestmentFund is CompoundWallet {
   address[] public investors;
   address[] public voters;
   uint256 public fundsRaised;
-  uint256 public profit;
   uint256 public votes;
   string public title;
   string public desc;
@@ -26,7 +25,6 @@ contract InvestmentFund is CompoundWallet {
     title = _title;
     desc = _desc;
     fundsRaised = 0;
-    profit = 0;
   }
 
   modifier participatedAndVoted() {
@@ -89,14 +87,14 @@ contract InvestmentFund is CompoundWallet {
     }
     return isInvested;
   }
-// finish validations and modifiers and withdrawal math. check actual profit values. Read compound docs on calc profits
+
   function withdrawInvestment(address payable _cEtherContract) participatedAndVoted public payable {
     bool isProfit = redeemCEth(_cEtherContract, address(this));
     if (isProfit) {
       delete voters;
     }
   }
-  // rewrite way of checking for profit, grab from cEth interface
+
   function withdrawFunds(uint _amount) public payable returns (bool) {
     require(!hasParticipated(hasWithdrawn, msg.sender), 'Already withdrawn');
     require(hasParticipated(investors, msg.sender), 'Unauthorized');
